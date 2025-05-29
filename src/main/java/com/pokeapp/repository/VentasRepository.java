@@ -2,6 +2,7 @@ package com.pokeapp.repository;
 
 import com.pokeapp.entity.Ventas;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -18,5 +19,12 @@ public interface VentasRepository extends JpaRepository<Ventas, String> {
 
     @Query("SELECT v.idCarta FROM Ventas v WHERE v.emailVendedor = :emailVendedor")
     List<String> findIdCartaByEmailVendedor(@Param("emailVendedor") String emailVendedor);
+
+    @Query("SELECT v FROM Ventas v WHERE v.idCarta = :idCarta AND v.estado = 'Disponible'")
+    Optional<Ventas> findByIdCartaAndDisponible(@Param("idCarta") String idCarta);
+
+    @Modifying
+    @Query("UPDATE Ventas v SET v.estado = 'Comprado', v.emailComprador = :emailComprador WHERE v.idCarta = :idCarta")
+    int reservarVenta(@Param("idCarta") String idCarta, @Param("emailComprador") String emailComprador);
 
 }

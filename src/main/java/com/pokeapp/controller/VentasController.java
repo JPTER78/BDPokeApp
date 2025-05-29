@@ -1,20 +1,27 @@
 package com.pokeapp.controller;
 
+import com.pokeapp.EstadoVenta;
 import com.pokeapp.entity.Ventas;
+import com.pokeapp.repository.VentasRepository;
 import com.pokeapp.service.VentasService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/ventas")
 public class VentasController {
 
     private final VentasService ventasService;
+    private final VentasRepository ventasRepository;
 
-    public VentasController(VentasService ventasService) {
+    public VentasController(VentasService ventasService, VentasRepository ventasRepository) {
         this.ventasService = ventasService;
+        this.ventasRepository = ventasRepository;
     }
 
     @GetMapping
@@ -65,6 +72,22 @@ public class VentasController {
     public ResponseEntity<List<String>> obtenerCartasVendidas(@PathVariable String email) {
         return ResponseEntity.ok(ventasService.obtenerCartasVendidasPor(email));
     }
+
+    @PutMapping("/{idCarta}/reservar")
+    public ResponseEntity<?> reservarVenta(
+            @PathVariable String idCarta,
+            @RequestParam String emailComprador) {
+        try {
+            ventasService.reservarVenta(idCarta, emailComprador);
+            return ResponseEntity.ok().build();
+        } catch (RuntimeException e) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("Error: " + e.getMessage());
+        }
+    }
+
+
 
 }
 

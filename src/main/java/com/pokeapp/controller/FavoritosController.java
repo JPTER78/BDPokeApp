@@ -16,7 +16,7 @@ public class FavoritosController {
 
     public FavoritosController(FavoritosService favoritosService) {
         this.favoritosService = favoritosService;
-    }
+    }   
 
     @GetMapping
     public ResponseEntity<List<Favoritos>> obtenerTodos() {
