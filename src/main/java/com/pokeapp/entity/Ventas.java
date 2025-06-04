@@ -48,10 +48,8 @@ public class Ventas {
     @JoinColumn(name = "emailComprador", referencedColumnName = "email", insertable = false, updatable = false)
     private Usuarios comprador;
 
-    // Constructor vacío
     public Ventas() {}
 
-    // Constructor completo (excepto relaciones)
     public Ventas(String emailVendedor, String idCarta, String emailComprador, EstadoVenta estado, String idioma, String direccion, LocalDateTime fecha) {
         this.emailVendedor = emailVendedor;
         this.idCarta = idCarta;
@@ -62,7 +60,6 @@ public class Ventas {
         this.fecha = fecha;
     }
 
-    // Getters y Setters
     public String getEmailVendedor() {
         return emailVendedor;
     }

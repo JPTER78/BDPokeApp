@@ -19,7 +19,6 @@ public class VentasId implements Serializable {
         this.emailComprador = emailComprador;
     }
 
-    // Getters y Setters
     public String getEmailVendedor() {
         return emailVendedor;
     }
@@ -44,7 +43,6 @@ public class VentasId implements Serializable {
         this.emailComprador = emailComprador;
     }
 
-    // equals() y hashCode()
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

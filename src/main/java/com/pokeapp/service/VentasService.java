@@ -53,11 +53,10 @@ public class VentasService {
 
     @Transactional
     public void reservarVenta(String idCarta, String emailComprador) {
-        // 1. Buscar la venta disponible (con emailComprador = null)
+
         Ventas ventaDisponible = ventasRepository.findByIdCartaAndDisponible(idCarta)
                 .orElseThrow(() -> new RuntimeException("Carta no disponible"));
 
-        // 2. Crear una NUEVA venta con los mismos datos, pero emailComprador no null
         Ventas ventaReservada = new Ventas(
                 ventaDisponible.getEmailVendedor(),
                 ventaDisponible.getIdCarta(),
@@ -68,11 +67,10 @@ public class VentasService {
                 ventaDisponible.getFecha()
         );
 
-        // 3. Eliminar la venta anterior (la disponible)
         ventasRepository.delete(ventaDisponible);
 
-        // 4. Guardar la nueva venta (reservada)
         ventasRepository.save(ventaReservada);
+
     }
 
 

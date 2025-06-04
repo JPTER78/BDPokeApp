@@ -15,7 +15,6 @@ public class FavoritosId implements Serializable {
         this.idCarta = idCarta;
     }
 
-    // equals y hashCode son necesarios
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

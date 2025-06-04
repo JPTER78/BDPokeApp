@@ -27,7 +27,7 @@ public class UsuariosService {
     }
 
     public Usuarios createUsuario(Usuarios usuario) {
-        // Encriptamos la contraseña antes de guardar
+
         usuario.setContrasena(passwordEncoder.encode(usuario.getContrasena()));
         return usuariosRepository.save(usuario);
     }
